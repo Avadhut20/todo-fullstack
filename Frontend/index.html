@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h3>Login</h3>
+            <!-- Add id attribute to the form for better targeting -->
+            <form id="loginForm">
+                <input type="text" placeholder="Username" required>
+                <input type="password" placeholder="Password" required>
+                <!-- Change button type to "button" to prevent form submission -->
+                <button type="button" onclick="onLogin()">Sign in</button>
+            </form>
+            <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+            <p id="msg"></p>
+        </div>
+    </div>
+
+    <script>
+        function onLogin() {
+            const msg = document.getElementById("msg");
+          //  const formData = new FormData(document.getElementById("loginForm"));
+
+            fetch("/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                
+            })
+            .then(response => response.json())
+            .then(data => {
+                msg.innerHTML = data.msg;
+            });
+        }
+    </script>
+</body>
+</html>
