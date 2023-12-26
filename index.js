@@ -2,14 +2,28 @@ const express = require("express");
 const app = express();
 app.use(express.static("Frontend"));
 app.use(express.json());
+const path = require("path");
 
 app.post("/login", function (req, res) {
-    res.json({ msg: 'Logged in successfully' });
-    console.log("connected");
+    res.sendFile("logmsg.html",{root:path.join(__dirname,"Frontend")},function(err){
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log("file sent")
+        }
+    })
 });
 
 app.post("/signup", function (req, res) {
-    res.json({ msg: "User created successfully" });
+    res.sendFile("signupmsg.html",{root:path.join(__dirname,"Frontend")},function(err){
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log("file sent")
+        }
+    })
 });
 
 app.listen(3000, () => {

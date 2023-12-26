@@ -25,19 +25,28 @@
     <script>
         function onLogin() {
             const msg = document.getElementById("msg");
-          //  const formData = new FormData(document.getElementById("loginForm"));
+           const formData = new FormData(document.getElementById("loginForm"));
 
             fetch("/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                
+                body: JSON.stringify({
+                // Assuming you're sending username and password in the request body
+                username: formData.get("username"),
+                password: formData.get("password"),
+            }),
             })
-            .then(response => response.json())
-            .then(data => {
-                msg.innerHTML = data.msg;
-            });
+            .then(response => {
+            if (response.ok) {
+                // Redirect to the desired page (e.g., "logmsg.html")
+                window.location.href = "logmsg.html";
+            } else {
+                // Handle unsuccessful login
+                msg.innerHTML = "Login failed";
+            }
+        });
         }
     </script>
 </body>

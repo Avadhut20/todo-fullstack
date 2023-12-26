@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <div class="form-container">
             <h3>Sign Up</h3>
-            <form id="signupForm">
+            <form id="signupForm" >
                 <input type="text" placeholder="Full Name" required>
                 <input type="text" placeholder="Email" required>
                 <input type="password" placeholder="Password" required>
@@ -21,7 +23,7 @@
         </div>
     </div>
     <script>
-       function signup() {
+        function signup() {
             const msg = document.getElementById("msg");
             const formData = new FormData(document.getElementById("signupForm"));
 
@@ -30,13 +32,20 @@
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(Object.fromEntries(formData)),
+                body: JSON.stringify({
+                    fullName: formData.get("Full Name"),
+                    email: formData.get('Email'),
+                    password: formData.get("Password"),
+                }),
             })
-            .then(response => response.json())
-            .then(data => {
-                msg.innerHTML = data.msg;
-            });
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = "signupmsg.html"
+                    }
+                })
+
         }
     </script>
 </body>
+
 </html>
