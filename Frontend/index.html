@@ -12,10 +12,10 @@
             <h3>Login</h3>
             <!-- Add id attribute to the form for better targeting -->
             <form id="loginForm">
-                <input type="text" placeholder="Username" required>
-                <input type="password" placeholder="Password" required>
-                <!-- Change button type to "button" to prevent form submission -->
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
                 <button type="button" onclick="onLogin()">Sign in</button>
+            </form>
             </form>
             <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
             <p id="msg"></p>
@@ -42,7 +42,11 @@
             if (response.ok) {
                 // Redirect to the desired page (e.g., "logmsg.html")
                 window.location.href = "logmsg.html";
-            } else {
+            } else if(response.status===401){
+                alert("User Does Not exists");
+            }
+            
+            else {
                 // Handle unsuccessful login
                 msg.innerHTML = "Login failed";
             }
